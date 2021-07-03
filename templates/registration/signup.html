@@ -10,7 +10,7 @@
 
     <div class="card">
         <div class="card-body">
-          <h4 class="card-title">ログイン</h4>
+          <h4 class="card-title">新規作成</h4>
 
           <div class="form-group">
             <label for="text1">ユーザ:</label>
@@ -20,10 +20,15 @@
             <label for="passwd1">パスワード:</label>
             <input type="password" id="passwd1" name = "userPassword" class="form-control">
           </div>
-          <button type="button" class="btn btn-primary">ログイン</button>
+
+          <div class="form-group">
+            <label for="passwd1">パスワード(確認):</label>
+            <input type="password" id="passwd1" name = "userPassword2" class="form-control">
+          </div>
+          <button type="button" class="btn btn-secondary">アカウント作成</button>
 
           <p></p>
-          <p>アカウントをお持ちでない方は<a href = "{% url 'accounts:signup' %}">こちら</a>から</p>
+         
         </div>
       </div>
 
