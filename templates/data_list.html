@@ -2,6 +2,15 @@
 {% load static %}
 {% block content %}
 
+<p></p>
+
+<script>
+    var data = new Array(7);
+    var ring_buffer = 0;
+</script>
+
+<div class = "container-fluid">
+    <div class = "card">
 <table>
     <tr>
         <th>開始時刻</th>
@@ -13,8 +22,53 @@
         <td>{{ activity.start_time|date:"Y/n/j H:i:s" }}</td>
         <td>{{ activity.finish_time|date:"Y/n/j H:i:s" }}</td>
         <td>{{ activity.study_time }}</td>
+
     </tr>
     {% endfor %}
 </table>
 
+<div class="container">
+    <div>
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
+    </div>
+
+</div>
+
+<div class = "hoge">
+</div>
+
+<script>
+    
+
+</script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+
+
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['S', 'T', 'W', 'T', 'F', 'S', 'S'],
+    datasets: [{
+      label: 'red',
+      data: [6, 5 , 1, 19, 5, 7, 11],
+      backgroundColor: "rgba(255,0,0,0.4)"
+    }, {
+      label: 'oranges',
+      data: [2, 29, 5, 5, 2, 3, 30],
+      backgroundColor: "rgba(255,153,0,0.4)"
+    }]
+  }
+});
+
+</script>
+
 {% endblock %}
+
+
