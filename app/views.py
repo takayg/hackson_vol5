@@ -118,4 +118,3 @@ class DataList(generic.ListView):
     def get_queryset(self):
         activities = Activity.objects.filter(user=self.request.user).order_by('-start_time')
         return activities
-
