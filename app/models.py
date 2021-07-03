@@ -17,6 +17,10 @@ class Activity(models.Model):
         verbose_name='finish_time'
     )
 
+    study_time = models.TextField(
+        verbose_name='study_time'
+    )
+
     class Meta:
         verbose_name_plural='Activity'
     
