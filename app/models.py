@@ -17,9 +17,11 @@ class Activity(models.Model):
         verbose_name='finish_time'
     )
 
-    study_time = models.TextField(
+    #kawasaki
+    study_time = models.IntegerField(
         verbose_name='study_time'
     )
+
 
     class Meta:
         verbose_name_plural='Activity'
