@@ -90,18 +90,22 @@ def finish_task(request):
     finish_time = datetime.datetime.now()
     time_diff = (finish_time - start_time)
     time_diff = time_diff.seconds
+
+
+    activity = Activity.objects.create(
+        user = request.user,
+        start_time = start_time,
+        finish_time = finish_time,
+        study_time = time_diff
+        #study_time = str(hours) + '時間' + str(minutes) + '分' + str(seconds) + '秒'
+    )
+
     hours = time_diff // 3600
     time_diff %= 3600
     minutes = time_diff // 60
     seconds = time_diff % 60
     context = {'hours' : hours, 'minutes' : minutes, 'seconds' : seconds}
 
-    activity = Activity.objects.create(
-        user = request.user,
-        start_time = start_time,
-        finish_time = finish_time,
-        study_time = str(hours) + '時間' + str(minutes) + '分' + str(seconds) + '秒'
-    )
     
 
     return render(request, 'finish_task.html', context)
@@ -114,4 +118,3 @@ class DataList(generic.ListView):
     def get_queryset(self):
         activities = Activity.objects.filter(user=self.request.user).order_by('-start_time')
         return activities
-
