@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1>{{ start_time }}</h1>
+<a href="{% url 'app:finish_task' %}">FINISH</a>
+<div>
+    <div id="image_area">
+        <img src="/send_capture" width="810" height="540"/>
+    </div>
+</div>
+{% endblock %}
