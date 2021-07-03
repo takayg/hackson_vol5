@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.http import StreamingHttpResponse
+from django.urls import reverse_lazy
+
+from .models import Activity
 
 from face_detection_management.settings import FACE_CASCADE_PATH
 
@@ -86,4 +89,26 @@ def finish_task(request):
     global start_time
     finish_time = datetime.datetime.now()
     time_diff = finish_time - start_time
+    activity = Activity.objects.create(
+        user = request.user,
+        start_time = start_time,
+        finish_time = finish_time
+    )
+
     return render(request, 'finish_task.html')
+
+# class FinshTaskView(generic.CreateView):
+#     model = Activity
+#     template_name = 'finish_task.html'
+#     success_url = reverse_lazy('app:index')
+#     finish_time = datetime.datetime.now()
+#     time_diff = finish_time - start_time
+
+#     def form_valid(self, form):
+#         global start_time
+#         activity = form.save(commit=False)
+#         activity.user = self.request.user
+#         activity.start_time = start_time
+#         activity.finish_time = finish_time
+#         activity.save()
+#         return super().form_valid(form)

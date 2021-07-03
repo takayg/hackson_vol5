@@ -9,16 +9,17 @@ class Activity(models.Model):
         on_delete=models.CASCADE
     )
 
-    start_time = models.DateField(
+    start_time = models.DateTimeField(
         verbose_name='start_time'
     )
 
-    finish_time = models.DateField(
+    finish_time = models.DateTimeField(
         verbose_name='finish_time'
     )
 
     class Meta:
         verbose_name_plural='Activity'
+    
 
 class ActivityDetail(models.Model):
 
@@ -35,4 +36,7 @@ class ActivityDetail(models.Model):
     rest_finish_time = models.DateField(
         verbose_name='rest_finish_time'
     )
+
+    class Meta:
+        verbose_name_plural='ActivityDetails'
 
