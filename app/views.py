@@ -88,27 +88,17 @@ def send_capture():
 def finish_task(request):
     global start_time
     finish_time = datetime.datetime.now()
-    time_diff = finish_time - start_time
+    time_diff = (finish_time - start_time)
     activity = Activity.objects.create(
         user = request.user,
         start_time = start_time,
         finish_time = finish_time
     )
+    time_diff = time_diff.seconds
+    hours = time_diff // 3600
+    time_diff %= 3600
+    minutes = time_diff // 60
+    seconds = time_diff % 60
+    context = {'hours' : hours, 'minutes' : minutes, 'seconds' : seconds}
 
-    return render(request, 'finish_task.html')
-
-# class FinshTaskView(generic.CreateView):
-#     model = Activity
-#     template_name = 'finish_task.html'
-#     success_url = reverse_lazy('app:index')
-#     finish_time = datetime.datetime.now()
-#     time_diff = finish_time - start_time
-
-#     def form_valid(self, form):
-#         global start_time
-#         activity = form.save(commit=False)
-#         activity.user = self.request.user
-#         activity.start_time = start_time
-#         activity.finish_time = finish_time
-#         activity.save()
-#         return super().form_valid(form)
+    return render(request, 'finish_task.html', context)
