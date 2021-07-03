@@ -1,5 +1,56 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<a href="{% url 'app:working' %}">START</a>
+
+<p></p>
+
+<div class = "container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">
+            <p id = "RealtimeClockArea"></p>
+            </h4>
+
+
+
+    <a href="{% url 'app:working' %}" class = "btn btn-primary w-100">START</a>
+    
+    <!--{% now "Y/m/d H:i:s" %}-->
+    
+          
+          <ul>
+
+            <li>ここに</li>
+            <li>説明を</li>
+            <li>書いたり</li>
+            <li>する</li>
+          </ul>
+
+         
+        </div>
+      </div>
+</div>
+
+<script>
+
+function set2fig(num) {
+   // 桁数が1桁だったら先頭に0を加えて2桁に調整する
+   var ret;
+   if( num < 10 ) { ret = "0" + num; }
+   else { ret = num; }
+   return ret;
+}
+function showClock2() {
+   var nowTime = new Date();
+   var nowHour = set2fig( nowTime.getHours() );
+   var nowMin  = set2fig( nowTime.getMinutes() );
+   var nowSec  = set2fig( nowTime.getSeconds() );
+   var msg = "現在時刻は、" + nowHour + ":" + nowMin + ":" + nowSec + " です。";
+   document.getElementById("RealtimeClockArea").innerHTML = msg;
+}
+setInterval('showClock2()',1000);
+
+</script>
+
+
 {% endblock %}
