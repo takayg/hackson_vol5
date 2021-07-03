@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
@@ -12,6 +13,7 @@
         <div class="card-body">
           <h4 class="card-title">新規作成</h4>
 
+          <!--
           <div class="form-group">
             <label for="text1">ユーザ:</label>
             <input type="text" id="text1" name = "userName" class="form-control">
@@ -28,20 +30,27 @@
           <button type="button" class="btn btn-secondary">アカウント作成</button>
 
           <p></p>
-         
+        -->
+
+        <form method='POST'>
+
+            {% csrf_token %}
+
+
+           
+            <form method='POST'>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class = "btn btn-success w-100"type='submit'>Registration</button>
+            </form>
+
+        </form>
+        
         </div>
       </div>
 
     
 
-      
-<form method='POST'>
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
-    <button type='submit'>Send</button>
-</form>
-
+ 
 </div>
 {% endblock %}
