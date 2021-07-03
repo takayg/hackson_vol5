@@ -1,11 +1,42 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<h1>{{ start_time }}</h1>
-<a href="{% url 'app:finish_task' %}">FINISH</a>
+
+
+
+
+<p></p>
+<div class = "container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <h3>作業開始時間: {{ start_time }}</h3>
+
+<p></p>
 <div>
     <div id="image_area">
-        <img src="/send_capture" width="810" height="540"/>
+        <div class = "container-fluid my-btn">
+        <img src="/send_capture" class = "my-face"/>
+        <p></p>
+        <a href="{% url 'app:finish_task' %}" class = "btn btn-danger w-25">FINISH</a>
+        </div>
     </div>
+   
 </div>
+
+         
+        </div>
+      </div>
+</div>
+
+<style>
+    .my-face {
+        width:100%;
+        height: 320px;
+        object-fit: contain;
+    }
+
+    .my-btn {
+        text-align: center;
+    }
+</style>
 {% endblock %}
