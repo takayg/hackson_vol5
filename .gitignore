@@ -2,3 +2,4 @@ migrations
 *.pyc
 db.sqlite3
 __pycache__/
+local.py
