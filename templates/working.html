@@ -15,7 +15,7 @@
 <div>
     <div id="image_area">
         <div class = "container-fluid my-btn">
-        <img src="/send_capture" class = "my-face"/>
+        <img src="{% url 'app:send_capture' %}" class = "my-face"/>
         <p></p>
         <a href="{% url 'app:finish_task' %}" class = "btn btn-danger w-25">FINISH</a>
         </div>
