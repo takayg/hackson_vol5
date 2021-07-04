@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 
 from .models import Activity
 
-from face_detection_management.settings import FACE_CASCADE_PATH
+from face_detection_management.settings.base import FACE_CASCADE_PATH
 
 import datetime, time
 
