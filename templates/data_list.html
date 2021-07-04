@@ -18,15 +18,15 @@
 
 <script>
   for(var i = 0; i < areas.length; i++) {
-    areas[i] /= 60;
-    areas[i] = areas[i] | 0;
+    times.push(areas[i] / 60);
+    console.log(times[i]);   
   }
 </script>
 
 <script>
   for(var i = 0; i < areas.length; i++) {
-    times.push(areas[i]);
-    console.log(times[i]);   
+    areas[i] /= 60;
+    areas[i] = areas[i] | 0;
   }
 </script>
 
@@ -45,38 +45,46 @@
 
 </script>
 
-<div class = "container-fluid">
+<div class = "container-fluid p-5">
     <div class = "card">
     <p></p>
-    <div class = "container-fluid">
-<table border = "1" class = "my-table">
-    <tr>
-        <th>開始時刻</th>
-        <th>終了時刻</th>
-        <th>作業時間(分)</th>
-    </tr>
-    {% for activity in activities %}
-    <tr>
-        <td>{{ activity.start_time|date:"Y/n/j H:i:s" }}</td>
-        <td>{{ activity.finish_time|date:"Y/n/j H:i:s" }}</td>
+    <div class="container">
+      <div>
+        <canvas id="myChart"></canvas>
+      </div>
+    </div>
 
-        <script>
-          var minute = {{ activity.working_time}};
-          minute /= 60;
-          minute  = minute | 0;
-          document.write(`<td>${minute}</td>`);
-        </script>
-    
-    </tr>
-    {% endfor %}
-</table>
-    </div>
 <p></p>
-<div class="container">
-    <div>
-      <canvas id="myChart"></canvas>
-    </div>
-  </div>
+
+  <div class = "container-fluid p-5">
+    <table border = "1" class = "my-table">
+        <tr>
+            <th>開始時刻</th>
+            <th>終了時刻</th>
+            <th>作業時間(分)</th>
+            <th>作業時間(秒)</th>
+        </tr>
+        {% for activity in activities %}
+        <tr>
+            <td>{{ activity.start_time|date:"Y/n/j H:i:s" }}</td>
+            <td>{{ activity.finish_time|date:"Y/n/j H:i:s" }}</td>
+    
+            <script>
+              var minute = {{ activity.working_time}};
+              minute /= 60;
+              minute  = minute | 0;
+              document.write(`<td>${minute}</td>`);
+
+              var second = {{ activity.working_time }};
+              second %= 60;
+              second = second | 0;
+              document.write(`<td>${second}</td>`);
+            </script>
+        
+        </tr>
+        {% endfor %}
+    </table>
+        </div>
     </div>
 
 </div>
