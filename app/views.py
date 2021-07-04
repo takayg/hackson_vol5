@@ -100,6 +100,7 @@ def finish_task(request):
         finish_time = datetime.datetime.now()
         time_diff = (finish_time - start_time)
         time_diff = time_diff.seconds
+        working_time = time_diff - not_working_time
 
 
         activity = Activity.objects.create(
@@ -107,14 +108,20 @@ def finish_task(request):
             start_time = start_time,
             finish_time = finish_time,
             not_working_time = not_working_time,
-            working_time = time_diff - not_working_time
+            working_time = working_time
         )
 
-        hours = time_diff // 3600
-        time_diff %= 3600
-        minutes = time_diff // 60
-        seconds = time_diff % 60
-        context = {'hours' : hours, 'minutes' : minutes, 'seconds' : seconds}
+        working_hours = working_time // 3600
+        working_time %= 3600
+        working_minutes = working_time // 60
+        working_seconds = working_time % 60
+
+        not_working_hours = int(not_working_time // 3600)
+        not_working_time %= 3600
+        not_working_minutes = int(not_working_time // 60)
+        not_working_seconds = int(not_working_time % 60)
+
+        context = {'working_hours' : working_hours, 'working_minutes' : working_minutes, 'working_seconds' : working_seconds, 'start_time' : start_time, 'finish_time' : finish_time, 'not_working_hours' : not_working_hours, 'not_working_minutes' : not_working_minutes, 'not_working_seconds' : not_working_seconds}
 
         del start_time
 
