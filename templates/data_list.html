@@ -5,16 +5,33 @@
 <p></p>
 
 <script>
-    var data = new Array();
+    var times = new Array();
     var areas = [
     {% for area in activities %}
-    {{area.study_time}},
+    {{area.working_time}},
     {% endfor %}
     ];
     console.log(areas);   
     areas.reverse();   
 
 </script>
+
+<script>
+  for(var i = 0; i < areas.length; i++) {
+    areas[i] /= 60;
+    areas[i] = areas[i] | 0;
+  }
+</script>
+
+<script>
+  for(var i = 0; i < areas.length; i++) {
+    times.push(areas[i]);
+    console.log(times[i]);   
+  }
+</script>
+
+
+
 
 <script>
      var days = [
@@ -26,24 +43,29 @@
     console.log(days);   
     days.reverse();   
 
-
 </script>
 
 <div class = "container-fluid">
     <div class = "card">
     <p></p>
     <div class = "container-fluid">
-<table border = "1">
+<table border = "1" class = "my-table">
     <tr>
         <th>開始時刻</th>
         <th>終了時刻</th>
-        <th>作業時間</th>
+        <th>作業時間(分)</th>
     </tr>
     {% for activity in activities %}
     <tr>
         <td>{{ activity.start_time|date:"Y/n/j H:i:s" }}</td>
         <td>{{ activity.finish_time|date:"Y/n/j H:i:s" }}</td>
-        <td>{{ activity.study_time }}</td>
+
+        <script>
+          var minute = {{ activity.working_time}};
+          minute /= 60;
+          minute  = minute | 0;
+          document.write(`<td>${minute}</td>`);
+        </script>
     
     </tr>
     {% endfor %}
@@ -80,13 +102,20 @@ var myChart = new Chart(ctx, {
     labels: days,
     datasets: [{
       label: "作業時間(分)",
-      data: areas,
+      data: times,
       backgroundColor: "rgba(255,0,0,0.4)"
     }]
   }
 });
 
 </script>
+
+<style>
+  .my-table {
+    text-align: center;
+  }
+
+</style>
 
 {% endblock %}
 
