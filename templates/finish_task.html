@@ -6,10 +6,11 @@
 <div class = "container-fluid">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">今回の作業時間は</h5>
-            <h5>{{ hours }}時間{{ minutes }}分{{ seconds }}秒</h5>
-            <h5>でした</h5>
-        <p><a href = "#">ランキング</a>を見る</p>
+            <h5 class="card-title">今回の作業時間は{{ working_hours }}時間{{ working_minutes }}分{{ working_seconds }}秒でした</h5>
+
+            <p>開始時刻 : {{ start_time|date:"Y/n/j H:i:s" }}</p>
+            <p>終了時刻 : {{ finish_time|date:"Y/n/j H:i:s" }}</p>
+            <p>休憩時間 : {{ not_working_hours }}時間{{ not_working_minutes }}分{{ not_working_seconds }}秒</p>
         </div>
       </div>
 </div>
