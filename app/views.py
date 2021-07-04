@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from django.http import StreamingHttpResponse
 from django.urls import reverse_lazy
@@ -19,6 +20,7 @@ class IndexView(generic.TemplateView):
 
     template_name = 'index.html'
 
+@login_required
 def working(request):
     global not_working_time, start_time
     not_working_time = 0
@@ -28,8 +30,6 @@ def working(request):
     }
     return render(request, 'working.html', context)
 
-
-# @login_required
 def capture():
     global not_working_time
 
@@ -91,35 +91,41 @@ def capture():
 def send_capture():
     return lambda _: StreamingHttpResponse(capture(), content_type='multipart/x-mixed-replace; boundary=frame')
     
-
+@login_required
 def finish_task(request):
     global start_time, not_working_time
 
-    not_working_time = int(not_working_time)
-    finish_time = datetime.datetime.now()
-    time_diff = (finish_time - start_time)
-    time_diff = time_diff.seconds
+    try:
+        not_working_time = int(not_working_time)
+        finish_time = datetime.datetime.now()
+        time_diff = (finish_time - start_time)
+        time_diff = time_diff.seconds
 
 
-    activity = Activity.objects.create(
-        user = request.user,
-        start_time = start_time,
-        finish_time = finish_time,
-        not_working_time = not_working_time,
-        working_time = time_diff - not_working_time
-    )
+        activity = Activity.objects.create(
+            user = request.user,
+            start_time = start_time,
+            finish_time = finish_time,
+            not_working_time = not_working_time,
+            working_time = time_diff - not_working_time
+        )
 
-    hours = time_diff // 3600
-    time_diff %= 3600
-    minutes = time_diff // 60
-    seconds = time_diff % 60
-    context = {'hours' : hours, 'minutes' : minutes, 'seconds' : seconds}
+        hours = time_diff // 3600
+        time_diff %= 3600
+        minutes = time_diff // 60
+        seconds = time_diff % 60
+        context = {'hours' : hours, 'minutes' : minutes, 'seconds' : seconds}
+
+        del start_time
+
+    except:
+        return redirect('app:index')
 
     
 
     return render(request, 'finish_task.html', context)
 
-class DataList(generic.ListView):
+class DataList(LoginRequiredMixin, generic.ListView):
 
     template_name = 'data_list.html'
     context_object_name = 'activities'
