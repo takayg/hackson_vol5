@@ -5,13 +5,35 @@
 <p></p>
 
 <script>
-    var data = new Array(7);
-    var ring_buffer = 0;
+    var data = new Array();
+    var areas = [
+    {% for area in activities %}
+    {{area.study_time}},
+    {% endfor %}
+    ];
+    console.log(areas);   
+    areas.reverse();   
+
+</script>
+
+<script>
+     var days = [
+    {% for area in activities %}
+    "",
+    {% endfor %}
+    ];
+
+    console.log(days);   
+    days.reverse();   
+
+
 </script>
 
 <div class = "container-fluid">
     <div class = "card">
-<table>
+    <p></p>
+    <div class = "container-fluid">
+<table border = "1">
     <tr>
         <th>開始時刻</th>
         <th>終了時刻</th>
@@ -22,11 +44,12 @@
         <td>{{ activity.start_time|date:"Y/n/j H:i:s" }}</td>
         <td>{{ activity.finish_time|date:"Y/n/j H:i:s" }}</td>
         <td>{{ activity.study_time }}</td>
-
+    
     </tr>
     {% endfor %}
 </table>
-
+    </div>
+<p></p>
 <div class="container">
     <div>
       <canvas id="myChart"></canvas>
@@ -40,7 +63,7 @@
 </div>
 
 <script>
-    
+
 
 </script>
 
@@ -54,15 +77,11 @@
 var myChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ['S', 'T', 'W', 'T', 'F', 'S', 'S'],
+    labels: days,
     datasets: [{
-      label: 'red',
-      data: [6, 5 , 1, 19, 5, 7, 11],
+      label: "作業時間(分)",
+      data: areas,
       backgroundColor: "rgba(255,0,0,0.4)"
-    }, {
-      label: 'oranges',
-      data: [2, 29, 5, 5, 2, 3, 30],
-      backgroundColor: "rgba(255,153,0,0.4)"
     }]
   }
 });
