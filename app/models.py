@@ -17,9 +17,12 @@ class Activity(models.Model):
         verbose_name='finish_time'
     )
 
-    #kawasaki
-    study_time = models.IntegerField(
-        verbose_name='study_time'
+    not_working_time = models.IntegerField(
+        verbose_name='not_working_time'
+    )
+
+    working_time = models.IntegerField(
+        verbose_name='working_time'
     )
 
 
